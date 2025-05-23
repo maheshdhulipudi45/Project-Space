@@ -1,0 +1,60 @@
+.loginform1 {
+  max-width: 350px;
+  margin: auto;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  text-transform: capitalize;
+}
+
+.label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+.input {
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.button {
+  width: 96%;
+  padding: 10px;
+  background: #ff6600;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.button:hover {
+  background: #f57c0a;
+}
+
+.message {
+  text-align: center;
+  font-size: 14px;
+  color: red;
+}
+.para1,.para2{
+     text-align: center;
+  font-size: 14px;
+  color: red;  
+
+}
+.signuppara{
+        text-align: center;
+}
+.linkspan{
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
