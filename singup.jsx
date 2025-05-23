@@ -1,12 +1,12 @@
-
-
-
 import React, { useState } from 'react';
+
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './SignupForm.module.css';
 
 const SignupForm = () => {
+
+
   const [formData, setFormData] = useState({
     profilePic: null,
     firstName: '',
@@ -14,35 +14,23 @@ const SignupForm = () => {
     phone: '',
     email: '',
     password: '',
-    identifier: '',
   });
 
   const [preview, setPreview] = useState(null);
-  const [emailError, setEmailError] = useState('');
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prev) => ({ ...prev, [name]: value }));
 
     if (value.trim() !== '') {
-      setErrors(prev => ({ ...prev, [name]: '' }));
-    }
-
-    if (name === 'identifier') {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      const phoneRegex = /^[0-9]{10}$/;
-      if (!emailRegex.test(value) && !phoneRegex.test(value)) {
-        setEmailError('Enter a valid email or phone number.');
-      } else {
-        setEmailError('');
-      }
+      setErrors((prev) => ({ ...prev, [name]: '' }));
     }
   };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    setFormData({ ...formData, profilePic: file });
+    setFormData((prev) => ({ ...prev, profilePic: file }));
 
     if (file) {
       const reader = new FileReader();
@@ -52,37 +40,39 @@ const SignupForm = () => {
       reader.readAsDataURL(file);
     }
 
-    setErrors(prev => ({ ...prev, profilePic: '' }));
+    setErrors((prev) => ({ ...prev, profilePic: '' }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const newErrors = {};
 
+    
     Object.keys(formData).forEach((key) => {
-      if ((key !== 'profilePic' && formData[key].trim() === '') || 
+      if ((key !== 'profilePic' && formData[key].trim() === '') ||
           (key === 'profilePic' && formData[key] === null)) {
-        newErrors[key] = `Enter ${key.replace(/([A-Z])/g, ' $1')}`;
+        newErrors[key] = `Please enter ${key.replace(/([A-Z])/g, ' $1').toLowerCase()}`;
       }
     });
 
+   
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^[0-9]{10}$/;
-    if (
-      formData.identifier &&
-      !emailRegex.test(formData.identifier) &&
-      !phoneRegex.test(formData.identifier)
-    ) {
-      setEmailError('Enter a valid email or phone number.');
-    } else {
-      setEmailError('');
+
+    if (formData.email && !emailRegex.test(formData.email)) {
+      newErrors.email = 'Enter a valid email address.';
+    }
+
+    if (formData.phone && !phoneRegex.test(formData.phone)) {
+      newErrors.phone = 'Enter a 10-digit phone number.';
     }
 
     setErrors(newErrors);
 
-    if (Object.keys(newErrors).length === 0 && emailError === '') {
+    if (Object.keys(newErrors).length === 0) {
       console.log('User Registered:', formData);
-      toast.success('Account Create Succes  Full');
+      toast.success('Account created successfully!');
+      setTimeout(() => navigate('/login'), 2000);
     }
   };
 
@@ -92,7 +82,12 @@ const SignupForm = () => {
       <form onSubmit={handleSubmit}>
         <div className={styles.profileContainer}>
           <label className={styles.profileLabel}>
-            <input type="file" accept="image/*" onChange={handleFileChange} className={styles.hiddenInput} />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              className={styles.hiddenInput}
+            />
             {preview ? (
               <img src={preview} alt="Profile Preview" className={styles.profilePreview} />
             ) : (
@@ -102,34 +97,64 @@ const SignupForm = () => {
           {errors.profilePic && <p className={styles.error}>{errors.profilePic}</p>}
         </div>
 
-        <input type="text" name="firstName" placeholder="First Name" value={formData.firstName} onChange={handleChange} className={styles.input} />
+        <input
+          type="text"
+          name="firstName"
+          placeholder="First Name"
+          value={formData.firstName}
+          onChange={handleChange}
+          className={styles.input}
+        />
         {errors.firstName && <p className={styles.error}>{errors.firstName}</p>}
 
-        <input type="text" name="lastName" placeholder="Last Name" value={formData.lastName} onChange={handleChange} className={styles.input} />
+        <input
+          type="text"
+          name="lastName"
+          placeholder="Last Name"
+          value={formData.lastName}
+          onChange={handleChange}
+          className={styles.input}
+        />
         {errors.lastName && <p className={styles.error}>{errors.lastName}</p>}
 
-        <input type="tel" name="phone" placeholder="Phone Number" value={formData.phone} onChange={handleChange} className={styles.input} />
+        <input
+          type="tel"
+          name="phone"
+          placeholder="Phone Number"
+          value={formData.phone}
+          onChange={handleChange}
+          className={styles.input}
+        />
         {errors.phone && <p className={styles.error}>{errors.phone}</p>}
 
-        <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} className={styles.input} />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleChange}
+          className={styles.input}
+        />
         {errors.email && <p className={styles.error}>{errors.email}</p>}
 
-        <input type="text" name="identifier" placeholder="Enter Email or Phone Number" value={formData.identifier} onChange={handleChange} className={styles.input} />
-        {emailError && <p className={styles.error}>{emailError}</p>}
-        {errors.identifier && <p className={styles.error}>{errors.identifier}</p>}
-
-        <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} className={styles.input} />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={formData.password}
+          onChange={handleChange}
+          className={styles.input}
+        />
         {errors.password && <p className={styles.error}>{errors.password}</p>}
 
         <button type="submit" className={styles.button}>Sign Up</button>
-       
-<p className={styles.signuppara}>
-  Already have an account?{" "}
-  <span className={styles.linkspan} onClick={() => navigate("/login")}>
-    Login.
-  </span>
-</p>
 
+        <p className={styles.signuppara}>
+          Already have an account?{' '}
+          <span className={styles.linkspan} onClick={() => navigate('/login')}>
+            Login.
+          </span>
+        </p>
       </form>
 
       <ToastContainer position="top-center" autoClose={3000} hideProgressBar />
