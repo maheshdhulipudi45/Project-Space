@@ -1,0 +1,87 @@
+.container {
+  width: 350px;
+  margin: auto;
+  margin-top: 45px;
+  padding: 20px;
+  text-align: center;
+   background: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.9);
+}
+
+.profileContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.profileLabel {
+  cursor: pointer;
+  text-align: center;
+  padding: 10px;
+
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.profilePreview {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 10px auto;
+  border: 2px solid #007bff;
+}
+
+.hiddenInput {
+  display: none; 
+}
+
+.input {
+  width: 90%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+}
+
+.button {
+  width: 96%;
+  padding: 12px;
+  background-color: #f77002;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 15px;
+}
+
+.button:hover {
+  background-color: #ff7707;
+}
+.signuppara {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.linkspan {
+  color: #007bff;
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.linkspan:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
